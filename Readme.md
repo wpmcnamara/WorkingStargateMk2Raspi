@@ -131,11 +131,11 @@ sudo apt install python python-daemon python-pip python-gpiozero build-essential
 
 Install one more package, required for controlling the speaker volume from the web page interface:
 
-`sudo apt install alsa-utils`
+```sudo apt install alsa-utils```
 
 Next install the required Python packages:
 
-`sudo pip install Adafruit-MCP3008 pygame gpiozero daemon daemontools daemontools-run python-daemon`
+```sudo pip install Adafruit-MCP3008 pygame gpiozero daemon daemontools daemontools-run python-daemon```
 
 
 Configure I2C (required for the Motor HAT): [https://learn.adafruit.com/adafruits-raspberry-pi-lesson-4-gpio-setup/configuring-i2c](https://learn.adafruit.com/adafruits-raspberry-pi-lesson-4-gpio-setup/configuring-i2c)
@@ -146,8 +146,11 @@ Follow Adafruit's instructions for the I2S Breakout: [https://learn.adafruit.com
 
 Double check the necessary settings are enabled:
 
+```sudo nano /boot/config.txt```
+
+Look for these settings:
+
 ```
-sudo nano /boot/config.txt
 dtparam=i2c1=on
 dtparam=i2c=on
 dtparam=i2c_arm=on
@@ -158,7 +161,7 @@ dtparam=i2c_baudrate=400000
 
 If using the WaveShare 7" monitor, following these directions from [https://www.waveshare.com/w/upload/5/58/7inch_HDMI_LCD_%28H%29_User_Manual.pdf](https://www.waveshare.com/w/upload/5/58/7inch_HDMI_LCD_%28H%29_User_Manual.pdf) : 
 
-`sudo nano /config.txt`
+```sudo nano /config.txt```
 
 Add these lines to the bottom of the file:
 ```
@@ -171,20 +174,20 @@ hdmi_cvt 1024 600 60 6 0 0 0
 ```
 Reboot your pi, after which you can plug in the WaveShare monitor:
 
-`sudo reboot`
+```sudo reboot```
 
 Create a folder for the Stargate in the home directory:
 
-`mkdir stargate`
+```mkdir stargate```
 
 Copy all of the Python files here. I used the following "rsync" command, so I could make edits on my local computer and then upload quickly to the Pi:
 
-`my laptop$ rsync -vPrltgoD -e ssh "/path/to/Stargate/WorkingStargateMk2Raspi-jrg/" pi@stargatepi.local:/home/pi/stargate/`
+```my laptop$ rsync -vPrltgoD -e ssh "/path/to/Stargate/WorkingStargateMk2Raspi-jrg/" pi@stargatepi.local:/home/pi/stargate/```
 
 
 If you're using the WaveShare 7" or another touch-sensitive monitor attached to your Pi, create a script on your Pi's Desktop that will launch the web interface:
 
-`nano /home/pi/Desktop/StargateCommand.sh`
+```nano /home/pi/Desktop/StargateCommand.sh```
 
 Copy/paste these file contents:
 
@@ -200,7 +203,7 @@ export DISPLAY=:0.0
 
 Make the file executable:
 
-`chmod u+x /home/pi/Desktop/StargateCommand.sh`
+```chmod u+x /home/pi/Desktop/StargateCommand.sh```
 
 Later, once the Stargate software is running, you can double tap on this script from your Pi's desktop to launch a full-screen web browser to control the Stargate.
 
@@ -247,7 +250,7 @@ exec /usr/bin/python main.py
 
 Save the file, then execute the following:
 
-`sudo chmod u+x /etc/service/stargate/run`
+```sudo chmod u+x /etc/service/stargate/run```
 
 The Python program should immediately start running. You can now control the Stargate via web browser as soon as the Raspberry Pi boots.
 
@@ -257,11 +260,11 @@ To automatically launch the dialing web page on your Pi's touch-screen monitor w
 
 Edit your autostart file:
 
-`nano ~/.config/lxsession/LXDE-pi/autostart`
+```nano ~/.config/lxsession/LXDE-pi/autostart```
 
 and add this line to the bottom (this will execute the script we created in an earlier step)
 
-`@/bin/bash /home/pi/Desktop/StargateCommand.sh`
+```@/bin/bash /home/pi/Desktop/StargateCommand.sh```
 
 Reboot your Pi, and the webpage should launch automatically!
 
@@ -270,15 +273,15 @@ Reboot your Pi, and the webpage should launch automatically!
 
 If you'd like to enable a Stargate Command screensaver (I downloaded [this video](https://www.youtube.com/watch?v=ufjKYaq2hp4) as an mp4), do the following steps:
 
-`sudo apt-get install xscreensaver`
+```sudo apt-get install xscreensaver```
 
 Change permissions on this file (already included in your Git download):
 
-`chmod +x /home/pi/stargate/web/VideoScreensaver.sh`
+```chmod +x /home/pi/stargate/web/VideoScreensaver.sh```
 
 Edit your autostart file
 
-`nano ~/.config/lxsession/LXDE-pi/autostart`
+```nano ~/.config/lxsession/LXDE-pi/autostart```
 
 and add these lines at the end:
 
