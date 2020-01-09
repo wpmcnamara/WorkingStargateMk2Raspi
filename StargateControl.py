@@ -107,11 +107,17 @@ class StargateControl:
         # Otherwise scan the entire gate
         print('Full scan')
         current_step = 0
-        while self.get_ldr_val() < self.cal_brightness:
+        max_steps = config.num_steps_circle * 2;
+        while (self.get_ldr_val() < self.cal_brightness) and (current_step < max_steps):
             current_step += 1
             self.motor_gate.step(1, config.gate_forward, Adafruit_MotorHAT.MICROSTEP)
             self.display_progress(current_step, config.num_steps_circle)
-
+            # Useful for initial debugging/testing:
+            # print("LDR: {}".format(self.get_ldr_val()))
+        
+        if current_step == max_steps:
+            raise ValueError('ERROR!!! TOO MANY STEPS DETECTED: {}'.format(current_step))
+        
         # Now in home position, turn off lighting and set current symbol to 'home'
         print('At home position, LDR value: {}'.format(self.get_ldr_val()))
         self.release_motor(self.motor_gate)
@@ -176,7 +182,8 @@ class StargateControl:
         for i in xrange(config.cal_num_samples):
             self.display_progress(i, config.cal_num_samples)
             val = self.get_ldr_val()
-            print('Read in {}'.format(brightness))
+#            print('Read in {}'.format(brightness))
+            print('Read in {}'.format(val))
 
             brightness += val
             self.motor_gate.step(config.cal_num_samples, config.gate_forward, config.motor_drive)
@@ -187,7 +194,7 @@ class StargateControl:
         average = brightness / config.cal_num_samples + 1
         print("Average: {:f}".format(average))
 
-        target_val = average + ((average / 100) * config.cal_percentage)
+        target_val = (average * config.cal_percentage) / 100
         print("Target val: {}".format(target_val))
         return target_val
 

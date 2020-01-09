@@ -2,6 +2,9 @@ from Adafruit_MotorHAT_Motors import Adafruit_MotorHAT
 
 # Configuration for Stargate
 
+# Play the SG1 theme after dialing the gate, before closing the wormhole
+play_theme = 0
+
 # Chevron pins, from bottom-left to bottom-right.
 # Index 0 will be bottom-left, 4 will be the top, 8 will be the bottom-right
 #
@@ -22,7 +25,8 @@ from Adafruit_MotorHAT_Motors import Adafruit_MotorHAT
 #
 # Once the table is populated, enter the values into the pin array below, following LED order:
 # pins_chevron = [17, 27, 22, 5, 6, 13, 26, 12, 16] # Pin order
-pins_chevron = [26, 12, 16, 13, 27, 6, 22, 5, 17] # Actual order, COMMENT OUT when figuring out the order
+#pins_chevron = [17, 27, 5, 22, 6, 16, 12, 26, 13] # Actual order, COMMENT OUT when figuring out the order
+pins_chevron = [27, 16, 13, 26, 22, 12, 6, 5, 17]
 
 # Pin for the ramp LED
 pin_gantry = 24
@@ -58,13 +62,15 @@ chevron_forward = Adafruit_MotorHAT.FORWARD
 chevron_backward = Adafruit_MotorHAT.BACKWARD
 
 # Expected minimum value from LDR when in the home position
-cal_brightness = 800
+# cal_brightness = 800
+cal_brightness = 200
 
 # How much brighter the calibration LED is to the LDR vs. baseline as a percentage
-cal_percentage = 150
+cal_percentage = 200
 
 # Number of steps of the motor per full symbol movement
-cal_steps_per_symbol = 15.46153846153846 * 2  # x2 because reasons
+#cal_steps_per_symbol = 15.46153846153846 * 2  # x2 because reasons
+cal_steps_per_symbol = 30.923077
 
 # Steps for the top chevron lock
 steps_chevron_lock = 9
@@ -86,5 +92,5 @@ num_symbols = 39
 num_chevrons = 9
 top_chevron = 4
 
-chevron_light_order = [5, 6, 7, 1, 2, 3, 0, 8]  # Order Chevrons will light up when dialing
+chevron_light_order = [5, 6, 7, 1, 2, 3, 0, 8, 4]  # Order Chevrons will light up when dialing
 chevron_engage_time = 1.5 - audio_delay_time  # Amount of time in seconds that the chevron will remain locked

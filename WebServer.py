@@ -20,6 +20,23 @@ class StargateHttpHandler(SimpleHTTPRequestHandler):
             os.system('systemctl poweroff')
             self.send_response(200, 'OK')
             return
+        
+        if self.path == '/reboot':
+            os.system('systemctl reboot')
+            self.send_response(200, 'OK')
+            return
+        
+        # https://unix.stackexchange.com/questions/21089/how-to-use-command-line-to-change-volume
+        
+        if self.path == '/volumeup':
+            os.system('amixer set PCM 5%+')
+            self.send_response(200, 'OK')
+            return
+        
+        if self.path == '/volumedown':
+            os.system('amixer set PCM 5%-')
+            self.send_response(200, 'OK')
+            return
 
         if self.path == '/dialstatus':
             if DialProgram.is_dialing:

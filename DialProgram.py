@@ -12,8 +12,9 @@ class DialProgram:
         self.audio = audio
 
     def dial(self, address):
-        if len(address) != 7:
-            raise ValueError('Address length must be 7')
+        length = len(address);
+        if (length < 7) or (length > 9):
+            raise ValueError('Address length must be 7, 8, or 9')
 
         DialProgram.is_dialing = True
         self.lightControl.all_off()
@@ -37,7 +38,7 @@ class DialProgram:
             while self.audio.is_playing():
                 sleep(0.01)
                 continue
-            if i == 6:
+            if i == length-1:
                 break
 
             self.lightControl.light_chevron(config.chevron_light_order[i])
@@ -53,7 +54,9 @@ class DialProgram:
             sleep(0.1)
             continue
 
-        self.audio.play_theme()
+        if config.play_theme:
+	        self.audio.play_theme()
+	        
         while self.audio.is_playing():
             sleep(0.1)
             continue
