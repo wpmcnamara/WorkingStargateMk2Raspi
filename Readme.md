@@ -76,7 +76,7 @@ Power for the whole system is provided via the Stargate HAT/PCB, so you will not
 
 The physical Chevron wire ordering does not matter since it will be corrected in software.
 
-#### Connections and soldering
+## Connections and soldering
 
 Set up your Raspberry Pi for SSH so that the Pi can be configured without direct physical access (for this initial setup you *will* need to plug the Pi into normal power; after this, though, the Pi's power will be supplied from the Stargate HAT).
 
@@ -102,7 +102,7 @@ Lastly, use the 7-pin female header to solder the audio breakout board onto the 
 
 When fully assembled, the Raspberry Pi stack fits at a slightly skewed angle on the two left-most screw holes in the base - it sounds like Dan screwed his Pi into place on the Stargate base, but for my build I couldn't quite get the Pi to line up to the holes, and also needed to shift it around once I put the ramp top piece on; it still all fit for me, but just barely. In particular, I had to bend my pins a little bit so the mini-breakout audio board sits at a slight angle under the ramp.
 
-### LEDs
+## LEDs
 The chevron LEDs are all powered from the PCB's "Gate" row's 12V pin (I daisy chained the 12V wire to each LED's anode lead), with ground going to each of the labeled chevron numbers in that row on the PCB. You will also need to solder the surface mount resistors and transistors onto the board, as well as the DIL socket (which the MCP3008 sits in).
 
 The Ramp / Gantry LEDs can be wired in series on each side, with no resistor. The 12V divided by the 4 LEDs results in 3V to each LED. This should nicely dim the white LEDs resulting in a well-lit but not overwhelmingly bright ramp. Ground goes to the "RMP" pin on the PCB. This is also significantly easier to wire up than a resistor and power line to each individual LED. If your LEDs can't be lit with 3V, you'll need to customise your wiring and potentially add in some resistors.
@@ -114,7 +114,7 @@ Dan notes: be very careful of the pads on the LEDs, they're very easy to rip off
 Instead of hot glue, I soldered the three LEDs into a straight line with an inch or so of wire between then, then *carefully* twisted the whole set of three into a loop, and superglue each LED onto the holders I'd printed from [www.thingiverse.com/thing:2795518](https://www.thingiverse.com/thing:2795518). This worked really well. Once the LED loops were glued onto the holders, I could then place each holder / set of three LEDs into the gate in order to measure how long of wire I needed to reach out the bottom of the gate (these were the ground wires that will go into the numbered pins on the PCB) and then to continue daisy chaining the 12V supply on to the next chevron. I then removed the LED holders and soldered all the long wires together, before putting the LED holders and wires back into the gate for final assembly. I test-fitted all the LED holders underneath the 3D printed front pieces of the Stargate, before gluing each into place, one section at a time. I started at the very top of the gate and worked my way down each side, which made wire management easier. Also, be sure to mark your 12V wire (or wires - I used a separate 12V wire on each "side" of the gate) otherwise you risk ending up with 10 or 11 wires out the bottom of your gate and no idea which ones are supposed to be 12V vs ground. (I speak from experience)
 
 
-### Rasperry Pi Setup
+## Rasperry Pi Setup
 
 First install a fresh copy of [Raspbian Lite](https://www.raspberrypi.org/downloads/raspbian/), configure the Pi for SSH and continue configuration via an SSH terminal. Remote SSH access is important so that the Pi can be updated / changed without having to disassemble the ramp. You can configure wifi and SSH without needing to plug in a keyboard or monitor ("headless" setup) by following [these directions](https://www.raspberrypi.org/documentation/configuration/wireless/headless.md).
 
@@ -208,7 +208,7 @@ Make the file executable:
 Later, once the Stargate software is running, you can double tap on this script from your Pi's desktop to launch a full-screen web browser to control the Stargate.
 
 
-### Code Setup
+## Code Setup
 
 Dan has some great functions built into main.py to allow testing of your LEDs and motors. I've also added some functionality to Dan's original code so I could test each component as I was assembling the gate. The following directions are a combination of both approaches.
 
