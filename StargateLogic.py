@@ -11,7 +11,8 @@ import config
 # 2: dial
 # 3: animation clock
 # 4: testing/debug
-# 5: do nothing
+# 5: all lights off
+# 6: do nothing
 
 class StargateLogic:
     def __init__(self, audio, light_control, stargate_control, dial_program):
@@ -39,7 +40,7 @@ class StargateLogic:
             self.address = address
         
         elif self.state == 4:
-            self.state = 5
+            self.state = 6
             action = command['action']
             
             if action == "spinBackward":
