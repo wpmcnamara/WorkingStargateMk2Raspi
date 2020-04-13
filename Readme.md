@@ -182,7 +182,7 @@ Create a folder for the Stargate in the home directory:
 
 Copy all of the Python files here. I used the following "rsync" command, so I could make edits on my local computer and then upload quickly to the Pi:
 
-```my laptop$ rsync -vPrltgoD -e ssh "/path/to/Stargate/WorkingStargateMk2Raspi-jrg/" pi@stargatepi.local:/home/pi/stargate/```
+```my laptop$ rsync -vPrltgoD -e ssh "/path/to/Stargate/WorkingStargateMk2Raspi/" pi@stargatepi.local:/home/pi/stargate/```
 
 
 If you're using the WaveShare 7" or another touch-sensitive monitor attached to your Pi, create a script on your Pi's Desktop that will launch the web interface:
@@ -206,6 +206,29 @@ Make the file executable:
 ```chmod u+x /home/pi/Desktop/StargateCommand.sh```
 
 Later, once the Stargate software is running, you can double tap on this script from your Pi's desktop to launch a full-screen web browser to control the Stargate.
+
+### Running without an internet connection
+
+If your Raspberry Pi won't have an active internet connection, there are a couple extra steps to do. In the "web" folder", edit both index.htm and dialingcomputer.htm and change these lines:
+
+```
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!--<script type="text/javascript" src="jquery-3.3.1.min.js"></script>-->
+```
+to:
+```
+<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>-->
+<script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+```
+
+Then, on your Pi, download the jquery file into your "web" directory, so it can be loaded locally instead of over the internet:
+
+```
+cd /home/pi/stargate/web/
+wget https://code.jquery.com/jquery-3.3.1.min.js
+```
+
+Your Stargate webpages should now load correctly on the Pi without an active internet connection.
 
 
 ## Code Setup
