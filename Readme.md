@@ -209,7 +209,15 @@ Later, once the Stargate software is running, you can double tap on this script 
 
 ### Running without an internet connection
 
-If your Raspberry Pi won't have an active internet connection, there are a couple extra steps to do. In the "web" folder", edit both index.htm and dialingcomputer.htm and change these lines:
+If your Raspberry Pi won't have an active internet connection, there are a couple extra steps to do. In the "web" folder", edit these three files:
+
+```
+index.htm
+dialingcomputer.htm
+testing.htm
+```
+
+and change these lines:
 
 ```
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
