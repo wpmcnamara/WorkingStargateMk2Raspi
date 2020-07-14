@@ -179,7 +179,7 @@ class StargateControl:
         print('Read in {}'.format(brightness))
 
         # Gather brightness samples
-        for i in xrange(config.cal_num_samples):
+        for i in range(config.cal_num_samples):
             self.display_progress(i, config.cal_num_samples)
             val = self.get_ldr_val()
 #            print('Read in {}'.format(brightness))
@@ -217,7 +217,7 @@ class StargateControl:
         num_leds = int(round(percent * 9))
         print('Num LEDS: {}'.format(num_leds))
         self.lighting.all_off()
-        for chevron in xrange(num_leds):
+        for chevron in range(num_leds):
             self.lighting.light_chevron(chevron)
 
     # Adafruit haven't added a 'release' method to the library for steppers

@@ -1,6 +1,6 @@
 import os
 import json
-from SimpleHTTPServer import SimpleHTTPRequestHandler
+from http.server import SimpleHTTPRequestHandler
 from DialProgram import DialProgram
 
 # Useful stuff from: https://stackoverflow.com/a/46332163
@@ -14,7 +14,7 @@ class StargateHttpHandler(SimpleHTTPRequestHandler):
         return fullpath
 
     def do_POST(self):
-        print('POST: {}'.format(self.path))
+        print(('POST: {}'.format(self.path)))
 
         if self.path == '/shutdown':
             os.system('systemctl poweroff')
@@ -49,8 +49,9 @@ class StargateHttpHandler(SimpleHTTPRequestHandler):
             self.send_error(404)
             return
 
-        content_len = int(self.headers.getheader('content-length', 0))
+        content_len = int(self.headers.get('content-length', 0))
         body = self.rfile.read(content_len)
         data = json.loads(body)
-        StargateHttpHandler.logic.execute_command(data)
         self.send_response(200, 'OK')
+        self.end_headers()
+        StargateHttpHandler.logic.execute_command(data)

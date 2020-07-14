@@ -9,7 +9,7 @@ from StargateLogic import StargateLogic
 import config
 from time import sleep
 from WebServer import StargateHttpHandler
-from BaseHTTPServer import HTTPServer
+from http.server import HTTPServer
 import threading
 import sys
 
@@ -36,7 +36,7 @@ dial_program = DialProgram(stargate_control, light_control, audio)
 logic = StargateLogic(audio, light_control, stargate_control, dial_program)
 
 # Run this FIRST to get the best drive method
-# stargate_control.drive_test()
+#stargate_control.drive_test()
 
 # Run this SECOND to get the chevron lighting order
 # light_control.cycle_chevrons()
@@ -45,7 +45,7 @@ logic = StargateLogic(audio, light_control, stargate_control, dial_program)
 # Update "cal_brightness = 200" in config.py based on your output.
 
 # Run this FOURTH to get core calibration settings
-# stargate_control.full_calibration()
+#stargate_control.full_calibration()
 
 # Run this to TEST the dial sequence
 # dial_program.dial([26, 6, 14, 31, 11, 29, 0])
@@ -70,6 +70,7 @@ stargate_control.quick_calibration()
 
 # Infinite loop doing stuff
 print('Running logic...')
+print("LDR: {}".format(stargate_control.get_ldr_val()))
 logic.loop()
 
 
